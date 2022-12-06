@@ -26,12 +26,53 @@ class HomePage extends StatelessWidget {
 
                   QuerySnapshot collection = value;
                   collection.docs.forEach((QueryDocumentSnapshot element) {
-                    Map<String, dynamic> myMap = element.data() as Map<String, dynamic>;
+                    Map<String, dynamic> myMap =
+                        element.data() as Map<String, dynamic>;
                     print(myMap["title"]);
                   });
                 });
               },
               child: Text("Obtener la data"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                tasksReference.add(
+                  {
+                    "title": "Ir de compras al super",
+                    "description": "Debemos comprar comida para todo el mes",
+                  },
+                ).then((DocumentReference value) {
+                  print(value.id);
+                }).catchError((error) {
+                  print("Ocurrio un error en el registro");
+                }).whenComplete(() {
+                  print("El regitro ha terminado");
+                });
+              },
+              child: Text(
+                "Agregar documento",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                tasksReference.doc("gvqKzAaj6zVU8TR7qh58").update(
+                  {
+                      "title": "Ir de paseo a la playa",
+                      
+                    },
+                    ).catchError(
+                  (error) {
+                    print(error);
+                  },
+                ).whenComplete(
+                  () {
+                    print("Actualizacion terminada");
+                  },
+                );
+              },
+              child: Text(
+                "Actualizar documento",
+              ),
             ),
           ],
         ),
