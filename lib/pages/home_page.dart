@@ -57,10 +57,9 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 tasksReference.doc("gvqKzAaj6zVU8TR7qh58").update(
                   {
-                      "title": "Ir de paseo a la playa",
-                      
-                    },
-                    ).catchError(
+                    "title": "Ir de paseo a la playa",
+                  },
+                ).catchError(
                   (error) {
                     print(error);
                   },
@@ -73,6 +72,34 @@ class HomePage extends StatelessWidget {
               child: Text(
                 "Actualizar documento",
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                tasksReference.doc("RrWpL6CUNfkcvumlbtZR").delete().catchError(
+                  (error) {
+                    print(error);
+                  },
+                ).whenComplete(() {
+                  print("La eliminacion esta completa");
+                });
+              },
+              child: Text("Eliminar documento"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                tasksReference.doc("A00002").set(
+                  {
+                    "Title": "Ir al concierto",
+                    "description":
+                        "Este fin de semana  debemos de ir al concierto",
+                  },
+                ).catchError((error) {
+                  print(error);
+                }).whenComplete(() {
+                  print("Creacion completada");
+                });
+              },
+              child: Text("Agregar documento personalizado"),
             ),
           ],
         ),
