@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tasks/models/task_model.dart';
 import 'package:tasks/ui/general/colors.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/item_task_widget.dart';
@@ -9,13 +10,15 @@ class HomePage extends StatelessWidget {
   CollectionReference tasksReference =
       FirebaseFirestore.instance.collection('tasks');
 
+    showTaskForm
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KBrandSecondaryColor,
       floatingActionButton: InkWell(
         onTap: () {
-
+          showTaskForm(context);
         },
         borderRadius: BorderRadius.circular(14.0),
         child: Container(
@@ -100,13 +103,32 @@ class HomePage extends StatelessWidget {
                       color: KBrandPrimaryColor.withOpacity(0.85),
                     ),
                   ),
-                  ItemTaskWidget(),
-                  
+                  StreamBuilder(
+                    stream: tasksReference.snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot snap) {
+                      if (snap.hasData) {
+                        List<TaskModel> tasks = [];
+                        QuerySnapshot collection = snap.data;
+
+                        tasks = collection.docs.map((e) => TaskModel.fromJson(e.data() as Map<String, dynamic>)).toList();
+
+                        return ListView.builder(
+                            itemCount: tasks.length,
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return ItemTaskWidget(
+                                taskModel: tasks[index],
+                              );
+                            }
+                            );
+                      }
+                      return loadingWidget();
+                    },
+                  ),
                 ],
               ),
-              ),
-
-
+            ),
           ],
         ),
       ),
