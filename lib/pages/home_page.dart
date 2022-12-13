@@ -2,15 +2,56 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks/models/task_model.dart';
 import 'package:tasks/ui/general/colors.dart';
+import 'package:tasks/ui/widgets/button_normal_widget.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/item_task_widget.dart';
-import 'package:tasks/ui/widgets/textfield_search_widget.dart';
+import 'package:tasks/ui/widgets/textfield_normal_widget.dart';
 
 class HomePage extends StatelessWidget {
   CollectionReference tasksReference =
       FirebaseFirestore.instance.collection('tasks');
 
-    showTaskForm
+  showTaskForm(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.all(14.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(22.0),
+              topRight: Radius.circular(22.0),
+                )
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Agregar tarea",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15.0,
+                  ),
+                ),
+                divider6(),
+                TextFieldNormalWidget(
+                  hintText: "Titulo",
+                  icon: Icons.text_fields,
+                ),
+                divider10(),
+                TextFieldNormalWidget(
+                  hintText: "Descripción",
+                  icon: Icons.description,
+                ),
+                divider10(),
+                divider10(),
+                ButtonNormalWidget(),
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +126,10 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     divider10(),
-                    TextFieldSearchWidget(),
+                    TextFieldNormalWidget(
+                      icon: Icons.search,
+                      hintText: "Buscar tarea...",
+                    ),
                   ],
                 ),
               ),
@@ -110,7 +154,10 @@ class HomePage extends StatelessWidget {
                         List<TaskModel> tasks = [];
                         QuerySnapshot collection = snap.data;
 
-                        tasks = collection.docs.map((e) => TaskModel.fromJson(e.data() as Map<String, dynamic>)).toList();
+                        tasks = collection.docs
+                            .map((e) => TaskModel.fromJson(
+                                e.data() as Map<String, dynamic>))
+                            .toList();
 
                         return ListView.builder(
                             itemCount: tasks.length,
@@ -120,8 +167,7 @@ class HomePage extends StatelessWidget {
                               return ItemTaskWidget(
                                 taskModel: tasks[index],
                               );
-                            }
-                            );
+                            });
                       }
                       return loadingWidget();
                     },
