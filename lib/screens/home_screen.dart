@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tasks/screens/note_editor.dart';
+import 'package:tasks/screens/note_reader.dart';
 import 'package:tasks/style/app_style.dart';
-
+import 'package:tasks/widgets/note_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,10 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 20.0,
             ),
-            StreamBuilder<QuerySnapshot>(
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
                 stream:
                     FirebaseFirestore.instance.collection("Notes").snapshots(),
-                builder: (context, AsyncSnapshot snapshot) {
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   //Aqui revisamos la coneccion con firebase
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -51,16 +54,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   if (snapshot.hasData) {
                     return GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2));
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      children: snapshot.data!.docs
+                          .map((note) => noteCard(() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NoteReaderScreen(note),
+                                    ));
+                              }, note))
+                          .toList(),
+                    );
                   }
-                  return Text("ther's no Notes",style: GoogleFonts.nunito(color:Colors.white),);
+                  return Text(
+                    "ther's no Notes",
+                    style: GoogleFonts.nunito(color: Colors.white),
+                  );
                 },
-                
-                )
-
+              ),
+            )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NoteEditorScreen()));
+        },
+        label: Text("Add Note"),
+        icon: Icon(Icons.add),
       ),
     );
   }
