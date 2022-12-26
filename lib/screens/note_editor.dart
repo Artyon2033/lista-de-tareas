@@ -46,10 +46,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             SizedBox(
               height: 8.0,
             ),
-            Text(
-              date,
-              style: AppStyle.dateTitle,
-            ),
+            
             SizedBox(
               height: 28.0,
             ),
@@ -72,7 +69,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         onPressed: () async {
           FirebaseFirestore.instance.collection("Notes").add({
             "Titulo_Nota": _titleController.text,
-            "Fecha de creacion": date,
+            
             "Contenido de la Nota": _mainController.text,
             "color_id": color_id
           }).then((value) {

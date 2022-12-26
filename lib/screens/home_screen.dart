@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   return Text(
-                    "ther's no Notes",
+                    "No hay notas",
                     style: GoogleFonts.nunito(color: Colors.white),
                   );
                 },

@@ -6,6 +6,8 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
   return InkWell(
       onTap: onTap,
       child:
+
+      //Aqui es donde se pone la decoracion para que se vea en la pagina principal
           Container(
             padding: EdgeInsets.all(8.0),
              margin: EdgeInsets.all(8.0),
@@ -20,9 +22,7 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
                 style: AppStyle.mainTitle,
                 ),
                 SizedBox(height: 4.0,), 
-                Text(doc["Fecha de creacion"],
-                style: AppStyle.dateTitle,
-                ),
+                
                 SizedBox(height: 4.0,), 
                 Text(doc["Contenido de la Nota"],
                 style: AppStyle.mainContent,

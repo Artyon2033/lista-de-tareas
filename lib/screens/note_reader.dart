@@ -20,6 +20,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
         backgroundColor: AppStyle.cardsColor[color_id],
         elevation: 0.0,
       ),
+      //Aqui conectamos lo que es los nuevos registros ingresados con las tablas donde se ingresaran los nuevos registros
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -29,9 +30,6 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                   style: AppStyle.mainTitle,
                   ),
                   SizedBox(height: 4.0,), 
-                  Text(widget.doc["Fecha de creacion"],
-                  style: AppStyle.dateTitle,
-                  ),
                   SizedBox(height: 28.0,), 
                   Text(widget.doc["Contenido de la Nota"],
                   style: AppStyle.mainContent,
