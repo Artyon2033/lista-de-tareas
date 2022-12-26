@@ -19,8 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppStyle.mainColor,
       appBar: AppBar(
+        //Le agregamos la palabra Notas en
         elevation: 0.0,
-        title: Text("FireNotes"),
+        title: Text("Notas",
+        ),
         centerTitle: true,
         backgroundColor: AppStyle.mainColor,
       ),
@@ -31,13 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Your recent Notes",
+              "Estas son todas tus Notas",
               style: GoogleFonts.roboto(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),
             ),
+            
             SizedBox(
               height: 20.0,
             ),
@@ -79,12 +82,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NoteEditorScreen()));
+        
         },
-        label: Text("Add Note"),
+        label: Text("Agregar Nota"),
         icon: Icon(Icons.add),
+        
       ),
     );
   }
