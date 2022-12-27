@@ -20,7 +20,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
         backgroundColor: AppStyle.cardsColor[color_id],
         elevation: 0.0,
       ),
-      //Aqui conectamos lo que es los nuevos registros ingresados con las tablas donde se ingresaran los nuevos registros
+     
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

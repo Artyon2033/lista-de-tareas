@@ -7,7 +7,7 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
       onTap: onTap,
       child:
 
-      //Aqui es donde se pone la decoracion para que se vea en la pagina principal
+      
           Container(
             padding: EdgeInsets.all(8.0),
              margin: EdgeInsets.all(8.0),

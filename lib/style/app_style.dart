@@ -7,7 +7,7 @@ class AppStyle {
   static Color mainColor = Color(0xFF000633);
   static Color accentColor = Color(0xFF0065FF);
 
-//Creando colores para las cartas (inicio)
+
   static List<Color> cardsColor = [
     Colors.white,
     Colors.red.shade100,
@@ -18,7 +18,7 @@ class AppStyle {
     Colors.blue.shade100,
     Colors.blueGrey.shade100,
   ];
-//Creando colores para las cartas (Fin)
+
   static TextStyle mainTitle =
       GoogleFonts.roboto(fontSize: 18.0, fontWeight: FontWeight.bold);
 
